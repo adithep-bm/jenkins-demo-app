@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/L-Passakorn/jenkins-demo-app.git'
+                git branch: 'main', url: 'https://github.com/adithep-bm/jenkins-demo-app.git'
             }
         }
         stage('Build Image') {
@@ -14,13 +14,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh 'docker rm -f demo-app || true'
-                sh 'docker run -d -p 8081:8081 --name demo-app jenkins-demo-app:latest'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'echo "Running tests..."'
-                sh 'docker exec demo-app pytest test_app.py || true'
+                sh 'docker run -d -p 5000:5000 --name demo-app jenkins-demo-app:latest'
             }
         }
     }
